@@ -4,7 +4,7 @@
 
     <form @submit.prevent="submit">
       <label>
-        あなたはこのサービスをどう思いますか？
+        ログインだよ
         <select v-model="answer" required>
           <option disabled value="">選択してください</option>
           <option>とても良い</option>
