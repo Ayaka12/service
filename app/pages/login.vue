@@ -1,48 +1,35 @@
 <template>
-  <div class="container">
-    <h1>アンケート</h1>
-
-    <form @submit.prevent="submit">
-      <label>
-        ログインだよ
-        <select v-model="answer" required>
-          <option disabled value="">選択してください</option>
-          <option>とても良い</option>
-          <option>普通</option>
-          <option>あまり良くない</option>
-        </select>
-      </label>
-
-      <button type="submit">送信</button>
-    </form>
-
-    <p v-if="submitted">送信ありがとうございました！</p>
+  <div>
+    <h1>アンケートページ</h1>
+    <p>LIFF が動作しています</p>
+    <button @click="sendMessage">結果を送信</button>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import liff from "@line/liff";
+import { onMounted } from "vue";
 
-const answer = ref("");
-const submitted = ref(false);
+const liffId = "YOUR_LIFF_ID"; // LINE Developers で発行された LIFF ID
 
-const submit = () => {
-  console.log("回答:", answer.value);
-  submitted.value = true;
+onMounted(async () => {
+  await liff.init({ liffId });
+  if (!liff.isLoggedIn()) {
+    liff.login();
+  }
+});
+
+const sendMessage = async () => {
+  if (liff.isInClient()) {
+    await liff.sendMessages([
+      {
+        type: "text",
+        text: "ログインだよ",
+      },
+    ]);
+    alert("送信しました！");
+  } else {
+    alert("LINE アプリで開いてください");
+  }
 };
 </script>
-
-<style scoped>
-.container {
-  max-width: 480px;
-  margin: 40px auto;
-  padding: 20px;
-  font-family: sans-serif;
-}
-select,
-button {
-  width: 100%;
-  margin-top: 12px;
-  padding: 8px;
-}
-</style>
