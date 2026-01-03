@@ -10,7 +10,7 @@
 import liff from "@line/liff";
 import { onMounted } from "vue";
 
-const liffId = "YOUR_LIFF_ID"; // LINE Developers で発行された LIFF ID
+const liffId = "2008802694-Fh2jPxG7"; // LINE Developers で発行された LIFF ID
 
 onMounted(async () => {
   await liff.init({ liffId });
