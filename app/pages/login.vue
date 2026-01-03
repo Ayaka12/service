@@ -13,6 +13,11 @@ import { onMounted } from "vue";
 const liffId = "2008802694-Fh2jPxG7"; // LINE Developers で発行された LIFF ID
 
 onMounted(async () => {
+  alert(`
+  isInClient: ${liff.isInClient()}
+  isLoggedIn: ${liff.isLoggedIn()}
+  OS: ${liff.getOS()}
+  `);
   await liff.init({ liffId });
   if (!liff.isLoggedIn()) {
     liff.login();
